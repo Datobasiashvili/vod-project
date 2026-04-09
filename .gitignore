@@ -1,0 +1,13 @@
+# Ignore all node_modules in any subfolder
+node_modules/
+
+# Ignore all environment variables (crucial for security!)
+.env
+
+# Ignore your local video uploads (don't push GBs of video to GitHub)
+# Adjust this path based on where you save your videos
+upload-service/uploads/
+
+# OS generated files
+.DS_Store
+Thumbs.db
