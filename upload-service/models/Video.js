@@ -19,8 +19,17 @@ const videoSchema = mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['pending', 'processed'],
+        enum: ['pending', 'processed', 'failed'],
         default: 'pending'
+    },
+    thumbnailUrl: {
+        type: String
+    },
+    duration: {
+        type: Number
+    },
+    size: {
+        type: Number
     },
     createdAt: {
         type: Date,

@@ -2,10 +2,12 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const app = express();
+const uploadRoutes = require("./routes/uploadRoutes");
 require("dotenv").config()
 
 app.use(cors());
 app.use(express.json());
+app.use('/', uploadRoutes);
 
 const connectDb = async () => {
     try {
