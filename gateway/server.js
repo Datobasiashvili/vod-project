@@ -2,7 +2,6 @@ require("dotenv").config();
 const express = require("express");
 const { createProxyMiddleware } = require("http-proxy-middleware");
 const cors = require("cors");
-const axios = require("axios");
 const { authenticate } = require("./middleware/authMiddleware");
 const cookieParser = require("cookie-parser");
 
@@ -26,14 +25,7 @@ app.use('/api/video', createProxyMiddleware({
 app.use('/api/upload', authenticate, createProxyMiddleware({
     target: process.env.UPLOAD_URL,
     changeOrigin: true,
-    pathRewrite: { '^/api/upload': '' },
-    onProxyReq: (proxyReq, req, res) => {
-        if (req.body) {
-            const bodyData = JSON.stringify(req.body);
-            proxyReq.setHeader('Content-Length', Buffer.byteLength(bodyData));
-            proxyReq.write(bodyData);
-        }
-    }
+    pathRewrite: { '^/api/upload': '' }
 }));
 
 const PORT = process.env.PORT || 5000

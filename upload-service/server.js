@@ -2,24 +2,17 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const app = express();
+const path = require("path");
 const uploadRoutes = require("./routes/uploadRoutes");
+const { connectDb } = require("vod-common");
 require("dotenv").config()
 
 app.use(cors());
-app.use(express.json());
+
 app.use('/', uploadRoutes);
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-const connectDb = async () => {
-    try {
-        await mongoose.connect(process.env.MONGO_URI);
-        console.log("Connected to MongoDB: vod_system");
-    } catch (err){
-        console.error("MongoDB connection error:", err);
-        process.exit(1);
-    }
-}
-
-connectDb();
+connectDb(mongoose, process.env.MONGO_URI, "UPLOAD-SERVICE");
 
 PORT = process.env.PORT || 5003;
 app.listen(PORT, () => {
